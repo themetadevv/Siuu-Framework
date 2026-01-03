@@ -7,7 +7,8 @@ appf_modules = {
     glm = "../../submodules/glm",
     imgui = "../../submodules/imgui",
     spdlog = "../../submodules/spdlog/include",
-    openal_soft = "../../submodules/openal-soft/include"
+    openal_soft = "../../submodules/openal-soft/include",
+    audiofile_adamstark = "../../submodules/audiofile"
 }
 
 include "../../submodules/glfw"
@@ -47,11 +48,12 @@ project "appframework"
     includedirs {
         "%{prj.location}/src",
         "%{prj.location}/libs",
-        "%{appf_modules.glfw}",
-        "%{appf_modules.glm}",
-        "%{appf_modules.imgui}",
-        "%{appf_modules.spdlog}",
-        "%{appf_modules.openal_soft}"
+        "%{appf_modules.glfw}", -- compile
+        "%{appf_modules.glm}", -- header-only
+        "%{appf_modules.imgui}", -- compile
+        "%{appf_modules.spdlog}", -- header-only
+        "%{appf_modules.openal_soft}", -- compile/header-only
+        "%{appf_modules.audiofile_adamstark}" -- single-header-compile
     }
 
     links {

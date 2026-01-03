@@ -76,11 +76,11 @@ namespace af {
 	// <--------------------- KEYBOARD ---------------------->
 
 	bool InputManager::KeyDown(KeyCode key_code) {
-		return m_sKeyCache[key_code] == InputState::Pressed && m_sLastKeyCache[key_code] != InputState::Pressed;
+		return m_sKeyCache[key_code] == InputState::Pressed;
 	}
 
 	bool InputManager::KeyPressed(KeyCode key_code) {
-		return m_sKeyCache[key_code] == InputState::Pressed;
+		return m_sKeyCache[key_code] == InputState::Pressed && m_sLastKeyCache[key_code] != InputState::Pressed;
 	}
 
 	bool InputManager::KeyReleased(KeyCode key_code) {
@@ -90,11 +90,11 @@ namespace af {
 	// <--------------------- MOUSE ---------------------->
 
 	bool InputManager::MouseDown(MouseCode mouse_code) {
-		return m_sMouseButtonCache[mouse_code] == InputState::Pressed && m_sLastMouseButtonCache[mouse_code] != InputState::Pressed;
+		return m_sMouseButtonCache[mouse_code] == InputState::Pressed;
 	}
 
 	bool InputManager::MousePressed(MouseCode mouse_code) {
-		return m_sMouseButtonCache[mouse_code] == InputState::Released;
+		return m_sMouseButtonCache[mouse_code] == InputState::Pressed && m_sLastMouseButtonCache[mouse_code] != InputState::Pressed;
 	}
 
 	bool InputManager::MouseReleased(MouseCode mouse_code) {

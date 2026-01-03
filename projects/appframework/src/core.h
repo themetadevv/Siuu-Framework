@@ -9,9 +9,11 @@
 	#define DEBUG_BREAK() std::abort()
 #endif
 
+#define ENABLE_LOGGING
+
 #if defined(__DEBUG__BUILD__)
 	#define ENABLE_ASSERTION
-	#define ENABLE_LOGGING
+
 	#define SOUND_LIB_DEBUGGER
 #endif
 

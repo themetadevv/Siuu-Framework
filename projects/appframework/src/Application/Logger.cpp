@@ -1,6 +1,6 @@
 
 #include "afpch.h"
-#include "Logger.h"
+#include "logger.h"
 
 namespace af {	
 	std::vector<spdlog::sink_ptr> Logger::m_LogSinks = {};

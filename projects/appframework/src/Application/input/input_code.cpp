@@ -1,6 +1,6 @@
 
 #include "afpch.h"
-#include "InputCodes.h"
+#include "input_code.h"
 
 std::string GetKeyCodeString(KeyCode key_code) {
 	switch (key_code) {

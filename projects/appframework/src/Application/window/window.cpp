@@ -2,9 +2,9 @@
 #include "afpch.h"
 #include "assertion.h"
 
-#include "Logger.h"
-#include "FrameManager.h"
-#include "Window.h"
+#include "application/logger.h"
+#include "application/frames_manager.h"
+#include "window.h"
 
 std::string_view GetVideoModeString(VideoMode vm) {
 	switch (vm) {
@@ -120,7 +120,7 @@ namespace af {
 		const GLFWvidmode* current_vid_mode = glfwGetVideoMode(m_PrimaryMonitorHandle);
 
 		m_OldVideoMode = m_WindowSpecs.VidMode;
-		AF_INFO("Old Video Mode : {0}", GetVideoModeString(m_OldVideoMode));
+	//	AF_INFO("Old Video Mode : {0}", GetVideoModeString(m_OldVideoMode));
 
 		switch (vm) {
 			case VideoMode::Default: break;

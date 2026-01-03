@@ -10,7 +10,8 @@ sandbox_modules_vendor = {
     glm = "../../submodules/glm",
     imgui = "../../submodules/imgui",
     spdlog = "../../submodules/spdlog/include",
-    openal_soft = "../../submodules/openal-soft/include"
+    openal_soft = "../../submodules/openal-soft/include",
+    audiofile_adamstark = "../../submodules/audiofile"
 }
 
 project "sandbox"
@@ -45,7 +46,8 @@ project "sandbox"
         "%{sandbox_modules_vendor.glm}",
         "%{sandbox_modules_vendor.imgui}",
         "%{sandbox_modules_vendor.spdlog}",
-        "%{sandbox_modules_vendor.openal_soft}"
+        "%{sandbox_modules_vendor.openal_soft}",
+        "%{sandbox_modules_vendor.audiofile_adamstark}"
     }
 
     links {

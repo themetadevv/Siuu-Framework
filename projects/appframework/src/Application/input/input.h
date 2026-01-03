@@ -2,8 +2,8 @@
 
 #include "core.h"
 
-#include "Maths.h"
-#include "InputCodes.h"
+#include "maths.h"
+#include "input_code.h"
 
 // basic input manager (doesn't recieves input when the window is not focused)
 

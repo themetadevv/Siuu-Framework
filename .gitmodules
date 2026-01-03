@@ -19,3 +19,6 @@
 [submodule "submodules/openal-soft"]
 	path = submodules/openal-soft
 	url = https://github.com/themetadevv/OpenAL-Soft.git
+[submodule "submodules/audiofile"]
+	path = submodules/audiofile
+	url = https://github.com/adamstark/AudioFile

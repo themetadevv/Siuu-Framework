@@ -5,22 +5,39 @@
 #include "Application/Logger.h"
 
 #if defined(ENABLE_ASSERTION)
-
-inline bool get_error(bool condition, std::string_view assertion_failed_message, const char* condition_name, const char* file, int line) {
-	if (condition)
-		return true;
-
-	AF_ERROR("Assertion failed: {}, {}, {}::{}", condition_name, assertion_failed_message, util::get_file_name_from_path(file), line);
-	return false;
-}
-
 #define AF_ASSERT(X, ...) \
-	do { \
-		if(!(get_error(X, __VA_ARGS__, #X, __FILE__, __LINE__))) { \
-			DEBUG_BREAK(); \
-		} \
-	} while(0)
-
+    do { \
+        if (!(X)) { \
+            AF_ERROR( \
+                "Assertion Failed\n" \
+                "  Expression : {}\n" \
+                "  Message    : {}\n"  \
+                "  Location   : {}::{}", \
+                #X, \
+                fmt::format(__VA_ARGS__), \
+                util::get_file_name_from_path(__FILE__), \
+                __LINE__ \
+            ); \
+            DEBUG_BREAK(); \
+        } \
+    } while (0)
 #else
-#define AF_ASSERT(X, ...) X;
+#define AF_ASSERT(X, ...) \
+    do { \
+        if (!(X)) { \
+            AF_ERROR( \
+                "Runtime Error\n" \
+                "  Expression : {}\n" \
+                "  Message    : {}\n"  \
+                "  Location   : {}::{}", \
+                #X, \
+                fmt::format(__VA_ARGS__), \
+                util::get_file_name_from_path(__FILE__), \
+                __LINE__ \
+            ); \
+            DEBUG_BREAK(); \
+        } \
+    } while (0)
 #endif
+
+

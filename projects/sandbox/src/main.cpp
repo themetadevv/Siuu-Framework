@@ -3,10 +3,13 @@
 #include <iostream>
 #include <format>
 
-#include "Application/Window.h"
-#include "Application/Input.h"
-#include "Application/FrameManager.h"
-#include "Application/Logger.h"
+#include "application/window/window.h"
+#include "application/input/input.h"
+#include "application/frames_manager.h"
+#include "application/logger.h"
+
+#include "application/audio/audio_device.h"
+#include "application/audio/audio.h"
 
 const std::string client_name = "Sandbox";
 
@@ -17,7 +20,7 @@ const std::string client_name = "Sandbox";
 #define CLIENT_CRITICAL(...) ::af::Logger::GetClient(client_name)->critical(__VA_ARGS__)
 
 int main() {
-	
+
 	WindowSpecs Specs;
 	Specs.Title = "Siuu";
 	Specs.Size = { 1600, 900 };
@@ -34,6 +37,21 @@ int main() {
 	af::InputManager::Init(window->GetNativeWindowHandle());
 	af::FrameManager::Init(window.get());
 
+	std::vector<std::string> devices;
+	af::GetAvailableSoundDevices(devices);
+
+	Scope<af::AudioDevice> sound_dev = CreateScope<af::AudioDevice>(USE_DEFAULT_SOUND_DEVICE);
+
+	af::Audio jump = af::Audio::LoadAudio("assets/test.wav");
+	af::Audio ring = af::Audio::LoadAudio("assets/ring.wav");
+
+	bool played = false;
+
+	jump.SetSrc();
+	ring.SetSrc();
+
+	CLIENT_INFO(sound_dev->GetCurrentDeviceName());
+
 	while (window->IsRunning())
 	{
 		if (af::InputManager::KeyPressed(KeyCode::Escape))
@@ -47,15 +65,26 @@ int main() {
 
 		if (af::InputManager::KeyPressed(KeyCode::F9)) {
 			window->SetVideoMode(VideoMode::Windowed);
-		}	
+		}
 
-		CLIENT_INFO("Client Count : {}", af::Logger::GetClientsCount());
+		if (af::InputManager::KeyPressed(KeyCode::F5)) {
+			if (sound_dev->GetCurrentDeviceName() != devices[0]) {
+				sound_dev->SetDevice(devices[0].c_str());
+				sound_dev->SetContext();
+				CLIENT_INFO(sound_dev->GetCurrentDeviceName());
+			}
+		}
 
+		if (!played) {
+			jump.Play();
+			ring.Play();
+			played = true;
+		}
+
+		af::InputManager::Update();
 		af::FrameManager::Update();
 		window->Update();
-		af::InputManager::Update();
 	}
 
 	af::Logger::DeleteClient(client_name);
-	CLIENT_INFO("Client Count : {}", af::Logger::GetClientsCount());
 }

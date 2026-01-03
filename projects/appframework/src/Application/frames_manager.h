@@ -2,7 +2,7 @@
 
 #include "core.h"
 #include "Maths.h"
-#include "Window.h"
+#include "window/window.h"
 
 // basic frame manager
 
